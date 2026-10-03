@@ -12,6 +12,13 @@ import { QUEUES } from './queue.constants.js';
           host: configService.get<string>('REDIS_HOST', 'localhost'),
           port: configService.get<number>('REDIS_PORT', 6379),
           password: configService.get<string>('REDIS_PASSWORD') || undefined,
+          maxRetriesPerRequest: null,
+          enableOfflineQueue: false,
+          lazyConnect: true,
+          retryStrategy: (times: number) => {
+            if (times > 2) return null;
+            return 1000;
+          },
         },
       }),
       inject: [ConfigService],

@@ -11,7 +11,7 @@ export declare class AuthService {
             id: string;
             email: string;
             fullName: string;
-            role: import("@prisma/client").$Enums.AdminRole;
+            role: string;
         };
     }>;
     staffLogin(eventCode: string, pin: string): Promise<{
@@ -20,7 +20,7 @@ export declare class AuthService {
             id: string;
             name: string;
             publicCode: string;
-            status: import("@prisma/client").$Enums.EventStatus;
+            status: string;
         };
         staffAccess: {
             id: string;
@@ -31,7 +31,7 @@ export declare class AuthService {
         activities: {
             id: string;
             name: string;
-            category: import("@prisma/client").$Enums.ActivityCategory;
+            category: string;
             maxClaimsPerUser: number;
         }[];
     }>;

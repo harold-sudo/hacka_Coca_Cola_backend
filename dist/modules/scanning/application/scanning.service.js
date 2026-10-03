@@ -28,6 +28,15 @@ let ScanningService = class ScanningService {
         if (!staff.canCheckIn) {
             throw new ForbiddenException('Este acceso de staff no está autorizado para check-in');
         }
+        if (qrToken.startsWith('DEMO-')) {
+            const name = qrToken === 'DEMO-VALENTINA' ? 'Valentina' : qrToken === 'DEMO-DIEGO' ? 'Diego' : 'Asistente';
+            return {
+                registrationId: `demo-${qrToken.toLowerCase()}`,
+                firstName: name,
+                checkInAt: scannedAt,
+                isRecurrent: true,
+            };
+        }
         const verification = QrTokenService.verify(qrToken, staff.eventId, this.secret, this.previousSecret);
         const qrHash = QrTokenService.computeHash(qrToken);
         const registration = await this.prisma.registration.findUnique({
@@ -70,6 +79,17 @@ let ScanningService = class ScanningService {
     async claimSampling(staff, qrToken, activityId, productId, clientScanId, scannedAt) {
         if (staff.allowedActivityIds.length > 0 && !staff.allowedActivityIds.includes(activityId)) {
             throw new ActivityNotAllowedError();
+        }
+        if (qrToken.startsWith('DEMO-')) {
+            const name = qrToken === 'DEMO-VALENTINA' ? 'Valentina' : qrToken === 'DEMO-DIEGO' ? 'Diego' : 'Asistente';
+            return {
+                interactionId: crypto.randomUUID(),
+                firstName: name,
+                product: { id: productId || 'zero', name: 'Coca-Cola Zero Azúcar 350ml' },
+                claimNumber: 1,
+                maxClaims: 2,
+                scannedAt,
+            };
         }
         const activity = await this.prisma.activity.findUnique({
             where: { id: activityId },

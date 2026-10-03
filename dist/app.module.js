@@ -13,6 +13,8 @@ import { ScanningModule } from './modules/scanning/scanning.module.js';
 import { FeedbackModule } from './modules/feedback/feedback.module.js';
 import { ConversationsModule } from './modules/conversations/conversations.module.js';
 import { AnalyticsModule } from './modules/analytics/analytics.module.js';
+import { EventsModule } from './modules/events/events.module.js';
+import { ProductsModule } from './modules/products/products.module.js';
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -29,6 +31,8 @@ AppModule = __decorate([
             FeedbackModule,
             ConversationsModule,
             AnalyticsModule,
+            EventsModule,
+            ProductsModule,
         ],
     })
 ], AppModule);

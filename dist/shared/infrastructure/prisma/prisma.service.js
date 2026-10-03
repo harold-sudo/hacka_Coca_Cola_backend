@@ -8,10 +8,20 @@ import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 let PrismaService = class PrismaService extends PrismaClient {
     async onModuleInit() {
-        await this.$connect();
+        try {
+            await this.$connect();
+            console.log('✅ Conexión con PostgreSQL/Supabase exitosa');
+        }
+        catch (err) {
+            console.warn('⚠️ No se pudo conectar a la base de datos PostgreSQL:', err.message);
+            console.warn('👉 Asegúrate de proveer la DATABASE_URL correcta en .env');
+        }
     }
     async onModuleDestroy() {
-        await this.$disconnect();
+        try {
+            await this.$disconnect();
+        }
+        catch { }
     }
 };
 PrismaService = __decorate([

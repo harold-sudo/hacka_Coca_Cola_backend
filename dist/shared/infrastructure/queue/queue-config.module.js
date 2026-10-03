@@ -20,6 +20,14 @@ QueueConfigModule = __decorate([
                         host: configService.get('REDIS_HOST', 'localhost'),
                         port: configService.get('REDIS_PORT', 6379),
                         password: configService.get('REDIS_PASSWORD') || undefined,
+                        maxRetriesPerRequest: null,
+                        enableOfflineQueue: false,
+                        lazyConnect: true,
+                        retryStrategy: (times) => {
+                            if (times > 2)
+                                return null;
+                            return 1000;
+                        },
                     },
                 }),
                 inject: [ConfigService],

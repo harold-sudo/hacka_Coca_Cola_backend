@@ -41,12 +41,12 @@ __decorate([
     __metadata("design:type", String)
 ], SamplingRequestDto.prototype, "qrToken", void 0);
 __decorate([
-    IsUUID('4', { message: 'activityId debe ser un UUID válido' }),
-    IsNotEmpty(),
+    IsString(),
+    IsNotEmpty({ message: 'activityId es obligatorio' }),
     __metadata("design:type", String)
 ], SamplingRequestDto.prototype, "activityId", void 0);
 __decorate([
-    IsUUID('4', { message: 'productId debe ser un UUID válido' }),
+    IsString(),
     IsOptional(),
     __metadata("design:type", String)
 ], SamplingRequestDto.prototype, "productId", void 0);

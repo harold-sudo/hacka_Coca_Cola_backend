@@ -19,11 +19,11 @@ export class SamplingRequestDto {
   @IsNotEmpty({ message: 'El token QR es obligatorio' })
   qrToken!: string;
 
-  @IsUUID('4', { message: 'activityId debe ser un UUID válido' })
-  @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty({ message: 'activityId es obligatorio' })
   activityId!: string;
 
-  @IsUUID('4', { message: 'productId debe ser un UUID válido' })
+  @IsString()
   @IsOptional()
   productId?: string;
 
